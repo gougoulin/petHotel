@@ -39,6 +39,8 @@ Admin
 - ORM: Sequelize
 - sequelize-cli
 - dotenv
+- logger: winston
+- express-winston
 
 ### Tools
 
