@@ -14,18 +14,29 @@ module.exports = function (User, checkPassword, getToken) {
   /**
    * handle post request to /api/auth/login
    */
-  AuthController.postLogin = async (req, res) => {
-    /** add validation */
-    const target = await User.findOne({ where: { email: req.body.email } });
-    if (await checkPassword(req.body.password, target.password)) {
-      // password matched, send token
-      const token = await getToken(target.userID);
-      res.status(200).json({ token, msg: "success" });
-    } else {
-      // incorrect password, go back
-      res.status(404).json({ msg: "failed", err: "err" });
+  AuthController.postLogin = async (req) => {
+    /** add validation later*/
+
+    try {
+      const target = await User.findOne({ where: { email: req.body.email } });
+      if (await checkPassword(req.body.password, target.password)) {
+        // password matched, send token
+        const token = await getToken(target.userID);
+        // res.status(200).json({ token, msg: "success" });
+        return { code: 200, data: { token, msg: "success" } };
+      } else {
+        // incorrect password, go back
+        // res.status(404).json({ msg: "failed", err: "err" });
+        return {
+          code: 401,
+          data: { msg: "failed", msg: "Incorrect email or password" },
+        };
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
+
   AuthController.postForgetPassword = () => {};
 
   /**

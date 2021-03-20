@@ -19,6 +19,9 @@ console.log(authController);
 router
   .route("/login")
   .get(authController.getLogin)
-  .post(authController.postLogin);
+  .post(async (req, res) => {
+    const { code, data } = await authController.postLogin(req, res);
+    res.status(code).json(data);
+  });
 
 module.exports = router;
