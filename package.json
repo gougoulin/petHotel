@@ -1,26 +1,27 @@
 {
-  "name": "petHotel",
-  "version": "1.0.0",
-  "description": "This project is a web application (React &amp; NodeJS) for an unreal pet hotel. Employees use this app to manage the daily business of the hotel. See readme for details.",
-  "main": "index.js",
+  "name": "pethotel",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gougoulin/petHotel.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gougoulin/petHotel/issues"
-  },
-  "homepage": "https://github.com/gougoulin/petHotel#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-winston": "^4.1.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.5.1",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

@@ -2,22 +2,28 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "database_development",
+    "database": "pethotel",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "saltRounds": 10,
+    "salt": "not_bacon"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "pethotel",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "saltRounds": 10,
+    "salt": "not_bacon"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "pethotel",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "saltRounds": 10,
+    "salt": "not_bacon"
   }
 }
