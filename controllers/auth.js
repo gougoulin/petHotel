@@ -33,7 +33,12 @@ module.exports = function (User, checkPassword, getToken) {
         };
       }
     } catch (error) {
-      console.log(error);
+      return {
+        code: 500,
+        data: {
+          err: "Internal server error. Contact admin to report the issue",
+        },
+      };
     }
   };
 
