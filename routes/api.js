@@ -15,7 +15,6 @@ const authController = require("../controllers/auth")(
   getToken
 );
 
-console.log(authController);
 router
   .route("/login")
   .get(authController.getLogin)
@@ -23,5 +22,20 @@ router
     const { code, data } = await authController.postLogin(req, res);
     res.status(code).json(data);
   });
+
+/**  /user endpoint */
+router.route("/user").get().post();
+router.route("/users").get().post();
+router.route("/user/:id").get().put().delete();
+
+/** /customer endpoint */
+router.route("/customer").get().post();
+router.route("/customers").get().post();
+router.route("/customer/:id").get().post().delete();
+
+/** /pet endpoint */
+router.route("/pet").get().post();
+router.route("/pets").get().post();
+router.route("/pet/:id").get().post().delete();
 
 module.exports = router;

@@ -29,14 +29,15 @@ module.exports = function (User, checkPassword, getToken) {
         // res.status(404).json({ msg: "failed", err: "err" });
         return {
           code: 401,
-          data: { msg: "failed", msg: "Incorrect email or password" },
+          data: { msg: "Incorrect email or password" },
         };
       }
     } catch (error) {
       return {
         code: 500,
         data: {
-          err: "Internal server error. Contact admin to report the issue",
+          msg: "Internal server error. Contact admin to report the issue",
+          error,
         },
       };
     }
