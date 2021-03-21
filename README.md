@@ -20,6 +20,11 @@ Admin
 1. register employee, CRUD employees
 2. NOT operate customers directly
 
+## Parts could be improved
+
+1. At the beginning, the authority and user are designed as Many-to-Many relation to practice Sequelize. In fact, it is a Many-to-One relation.
+2. A PaymentEmployee table was implemented, which it is not used.
+
 ## Stack
 
 ### Front End

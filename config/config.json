@@ -6,7 +6,11 @@
     "host": "127.0.0.1",
     "dialect": "mysql",
     "saltRounds": 10,
-    "salt": "not_bacon"
+    "salt": "not_bacon",
+    "jwtSecret": "this is a test",
+    "jwtOptions": {
+      "expiresIn": "12h"
+    }
   },
   "test": {
     "username": "root",

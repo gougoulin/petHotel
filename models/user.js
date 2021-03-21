@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Customer, { foreignKey: "userID" });
       User.hasOne(models.Employee, { foreignKey: "userId" });
       User.hasOne(models.Admin, { foreignKey: "userID" });
-      User.belongsToMany(models.Authority, { through: models.AuthorityUser });
+      User.belongsToMany(models.Authority, {
+        through: "AuthorityUser",
+        foreignKey: "userId",
+      });
     }
   }
   User.init(
