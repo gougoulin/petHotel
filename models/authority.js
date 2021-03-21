@@ -18,13 +18,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       permission: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       detail: {
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
       },
     },
     {

@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       userID: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         reference: {
           model: "User",
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       AuthorityID: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         reference: {
           model: "Authority",

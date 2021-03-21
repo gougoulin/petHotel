@@ -19,19 +19,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       method: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       amount: {
-        type: Sequelize.FLOAT,
+        type: DataTypes.FLOAT,
       },
       gst: {
-        type: Sequelize.FLOAT,
+        type: DataTypes.FLOAT,
       },
       customerID: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         reference: {
           model: "Customer",

@@ -44,4 +44,7 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// set up default permissions in the authority table
+require("../helpers/initAuthority")(db.Authority);
+
 module.exports = db;

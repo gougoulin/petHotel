@@ -20,38 +20,38 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       firstName: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       lastName: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       mobile: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       phone: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       address: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       suburb: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       postcode: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       userID: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         reference: {
           model: "User",

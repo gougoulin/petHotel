@@ -18,16 +18,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       animal: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       customerID: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         reference: {
           model: "Customer",
