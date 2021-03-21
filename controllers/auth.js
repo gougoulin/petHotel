@@ -4,11 +4,13 @@ module.exports = function (
   getToken,
   jwtSecret,
   jwtOptions,
-  jwt
+  jwt,
+  authorization
 ) {
   let AuthController = {};
 
   const { User, Authority, AuthorityUser, sequelize, Customer, Pet } = db;
+  const { canGetUsers } = authorization;
 
   const internalServerError = (error) => {
     return {
@@ -41,7 +43,6 @@ module.exports = function (
         where: { email: req.body.email },
         include: Authority,
       });
-      console.log(target.dataValues.password, target.password);
       if (await checkPassword(req.body.password, target.dataValues.password)) {
         // password matched, send token
         const payload = {
@@ -74,23 +75,38 @@ module.exports = function (
 
   /** handle requests to /api/auth/users */
   AuthController.getUsers = async (req) => {
-    // check authority first
-    // only employee and admin can request this resource
-    // permission must be larger than 1
-    // to be added
-
-    // after authority check
-    // 1. no users
-    // 2. at least one user
     try {
+      // check authority first
+      // only employee and admin can request this resource
+      // permission must be larger than 1
+      // to be added
+      const decoded = jwt.verify(
+        req.headers.authorization.split(" ")[1],
+        jwtSecret
+      );
+      console.log(`decoded.permission - ${decoded.permission}`);
+      if (canGetUsers(decoded.permission)) {
+        return {
+          code: 401,
+          data: {
+            msg: "Request denied. No permission.",
+          },
+        };
+      }
+
+      // after authority check
+      // 1. no users
+      // 2. at least one user
+
       // to secure users information, password shouldn't be send
       // all employees can get users' info, so it's not safe to send password
       const users = await User.findAll({
         attributes: { exclude: ["password"] },
       });
-      if (!users)
-        return { code: 200, data: { msg: "no user in the database" } };
-      return { code: 200, data: { users } };
+      return {
+        code: 200,
+        data: { users, NumberOfUsers: users ? users.length : 0 },
+      };
     } catch (error) {
       return internalServerError(error);
     }
@@ -111,7 +127,7 @@ module.exports = function (
           transaction: trans,
         });
         if (isCreated) {
-          console.log("auth.js", "success");
+          // default user authority : 1
           await AuthorityUser.create(
             {
               userID: user.dataValues.userID,
@@ -124,7 +140,6 @@ module.exports = function (
             data: { user },
           };
         } else {
-          console.log("auth.js", "user exist.");
           result = {
             code: 409,
             data: {

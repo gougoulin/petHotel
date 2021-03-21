@@ -1,16 +1,15 @@
 var express = require("express");
 var router = express.Router();
 
-// const config = require("../config/config.json")[
-//   process.env.NODE_ENV || "development"
-// ];
 const jwt = require("jsonwebtoken");
 const env = process.env.NODE_ENV || "development";
-const { jwtSecret, jwtOptions } = require("../config/config.json")[env];
+const config = require("../config/config.json")[env];
+const { jwtSecret, jwtOptions } = config;
 
 const db = require("../models/");
 const checkPassword = require("../helpers/checkpassword");
 const getToken = require("../helpers/getToken");
+const authorization = require("../helpers/permission");
 
 const authController = require("../controllers/auth")(
   db,
@@ -18,7 +17,8 @@ const authController = require("../controllers/auth")(
   getToken,
   jwtSecret,
   jwtOptions,
-  jwt
+  jwt,
+  authorization
 );
 
 router
