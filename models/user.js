@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasOne(models.Customer, { foreignKey: "userID" });
       User.hasOne(models.Employee, { foreignKey: "userId" });
-      User.hasOne(model.Admin, { foreignKey: "userID" });
+      User.hasOne(models.Admin, { foreignKey: "userID" });
       User.belongsToMany(models.Authority, { through: models.AuthorityUser });
     }
   }

@@ -7,7 +7,6 @@ const user = require("../models/user");
  * initialize the Authority table for app
  */
 module.exports = async (Authority) => {
-  console.log("initAuthority.js", "i'm running");
   await Authority.bulkCreate([
     /**
      * 0-no permission 1-customer only 2-customer & employee 4 admin
