@@ -14,9 +14,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Authority.init(
     {
-      AuthorityID: DataTypes.INTEGER,
-      description: DataTypes.TEXT,
-      detail: DataTypes.STRING,
+      authorityID: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      description: {
+        type: Sequelize.INTEGER,
+      },
+      detail: {
+        type: Sequelize.TEXT,
+      },
     },
     {
       sequelize,

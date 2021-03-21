@@ -14,9 +14,26 @@ module.exports = (sequelize, DataTypes) => {
   }
   Admin.init(
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      UserID: DataTypes.INTEGER,
+      adminID: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      firstName: {
+        type: Sequelize.STRING,
+      },
+      lastName: {
+        type: Sequelize.STRING,
+      },
+      userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference: {
+          model: "User",
+          key: "userID",
+        },
+      },
     },
     {
       sequelize,

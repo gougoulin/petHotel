@@ -15,12 +15,35 @@ module.exports = (sequelize, DataTypes) => {
   }
   Employee.init(
     {
-      fisrtName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      position: DataTypes.STRING,
-      email: DataTypes.STRING,
-      contact: DataTypes.STRING,
-      userID: DataTypes.INTEGER,
+      employeeID: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      firstName: {
+        type: Sequelize.STRING,
+      },
+      lastName: {
+        type: Sequelize.STRING,
+      },
+      position: {
+        type: Sequelize.STRING,
+      },
+      email: {
+        type: Sequelize.STRING,
+      },
+      contact: {
+        type: Sequelize.STRING,
+      },
+      userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference: {
+          model: "User",
+          key: "userID",
+        },
+      },
     },
     {
       sequelize,

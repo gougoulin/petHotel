@@ -15,11 +15,29 @@ module.exports = (sequelize, DataTypes) => {
   }
   Payment.init(
     {
-      PaymentID: DataTypes.INTEGER,
-      method: DataTypes.STRING,
-      amount: DataTypes.FLOAT,
-      gst: DataTypes.FLOAT,
-      CustomerID: DataTypes.INTEGER,
+      paymentID: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      method: {
+        type: Sequelize.STRING,
+      },
+      amount: {
+        type: Sequelize.FLOAT,
+      },
+      gst: {
+        type: Sequelize.FLOAT,
+      },
+      customerID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference: {
+          model: "Customer",
+          key: "customerID",
+        },
+      },
     },
     {
       sequelize,

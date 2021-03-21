@@ -17,19 +17,47 @@ module.exports = (sequelize, DataTypes) => {
   Customer.init(
     {
       customerID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
       },
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      email: DataTypes.STRING,
-      mobile: DataTypes.STRING,
-      phone: DataTypes.STRING,
-      address: DataTypes.STRING,
-      suburb: DataTypes.STRING,
-      postcode: DataTypes.STRING,
+      firstName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      lastName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      mobile: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      phone: {
+        type: Sequelize.STRING,
+      },
+      address: {
+        type: Sequelize.STRING,
+      },
+      suburb: {
+        type: Sequelize.STRING,
+      },
+      postcode: {
+        type: Sequelize.STRING,
+      },
+      userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference: {
+          model: "User",
+          key: "userID",
+        },
+      },
     },
     {
       sequelize,
