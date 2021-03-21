@@ -14,20 +14,20 @@ module.exports = async (Authority) => {
      * employee, customer
      */
     {
-      description: 0,
+      permission: 0,
       detail: "temporary permission",
       // may used in future
     },
     {
-      description: 1,
+      permission: 1,
       detail: "customer permission",
     },
     {
-      description: 2,
+      permission: 2,
       detail: "employee permission, crud customer, only read employee",
     },
     {
-      description: 4,
+      permission: 4,
       detail: "super admin permission, crud employee & customer ",
     },
   ]);

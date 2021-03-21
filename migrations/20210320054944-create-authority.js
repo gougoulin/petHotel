@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      description: {
+      permission: {
         type: Sequelize.INTEGER,
       },
       detail: {

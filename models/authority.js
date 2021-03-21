@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      description: {
+      permission: {
         type: Sequelize.INTEGER,
       },
       detail: {
