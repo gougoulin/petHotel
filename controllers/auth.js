@@ -8,7 +8,7 @@ module.exports = function (
 ) {
   let AuthController = {};
 
-  const { User, Authority, sequelize, Customer, Pet } = db;
+  const { User, Authority, AuthorityUser, sequelize, Customer, Pet } = db;
 
   const internalServerError = (error) => {
     return {
@@ -49,7 +49,9 @@ module.exports = function (
           permission: target.dataValues.Authorities[0].dataValues.permission,
         };
         const token = await getToken(payload, jwtSecret, jwtOptions, jwt);
-        console.log("[auth.js]", token);
+        // for security, remove password from target
+        // don't send password
+        delete target.dataValues.password;
         return {
           code: 200,
           data: { token, msg: "success", target: target.toJSON() },
@@ -101,7 +103,6 @@ module.exports = function (
   AuthController.postUser = async (req) => {
     // create new user, no permission required
     try {
-      console.log(sequelize.transaction);
       let result;
       await sequelize.transaction(async (trans) => {
         const [user, isCreated] = await User.findOrCreate({
@@ -111,6 +112,13 @@ module.exports = function (
         });
         if (isCreated) {
           console.log("auth.js", "success");
+          await AuthorityUser.create(
+            {
+              userID: user.dataValues.userID,
+              AuthorityID: 1,
+            },
+            { transaction: trans }
+          );
           result = {
             code: 200,
             data: { user },
