@@ -32,6 +32,25 @@ router
     res.status(401).json({ msg: "Invalid request methods for the resource." })
   );
 
+/** endpoint /user/:id */
+router
+  .route("/user/:id")
+  .get(async (req, res) => {
+    const { code, data } = await authController.getUserById(req);
+    sendResponse({ code, data }, res);
+  })
+  .put(async (req, res) => {
+    const { code, data } = await authController.putUserById(req);
+    sendResponse({ code, data }, res);
+  })
+  .delete(async (req, res) => {
+    const { code, data } = await authController.deleteUserById(req);
+    sendResponse({ code, data }, res);
+  })
+  .all((req, res) =>
+    res.status(401).json({ msg: "Invalid request methods for the resource." })
+  );
+
 /**  endpoint /user  */
 router
   .route("/user")
@@ -49,25 +68,6 @@ router
   .route("/users")
   .get(async (req, res) => {
     const { code, data } = await authController.getUsers(req);
-    sendResponse({ code, data }, res);
-  })
-  .all((req, res) =>
-    res.status(401).json({ msg: "Invalid request methods for the resource." })
-  );
-
-/** endpoint /user/:id */
-router
-  .route("/user/:id")
-  .get(async (req, res) => {
-    const { code, data } = await authController.getUserById(req);
-    sendResponse({ code, data }, res);
-  })
-  .put(async (req, res) => {
-    const { code, data } = await authController.putUserById(req);
-    sendResponse({ code, data }, res);
-  })
-  .delete(async (req, res) => {
-    const { code, data } = await authController.deleteUserById(req);
     sendResponse({ code, data }, res);
   })
   .all((req, res) =>

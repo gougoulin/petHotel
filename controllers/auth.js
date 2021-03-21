@@ -22,6 +22,14 @@ module.exports = function (
     };
   };
 
+  const getTokenData = (req) => {
+    const decoded = jwt.verify(
+      req.headers.authorization.split(" ")[1],
+      jwtSecret
+    );
+    return decoded;
+  };
+
   /**
    *
    * @param {*} req
@@ -46,7 +54,7 @@ module.exports = function (
       if (await checkPassword(req.body.password, target.dataValues.password)) {
         // password matched, send token
         const payload = {
-          userId: target.dataValues.userID,
+          userID: target.dataValues.userID,
           permission: target.dataValues.Authorities[0].dataValues.permission,
         };
         const token = await getToken(payload, jwtSecret, jwtOptions, jwt);
@@ -80,12 +88,8 @@ module.exports = function (
       // only employee and admin can request this resource
       // permission must be larger than 1
       // to be added
-      const decoded = jwt.verify(
-        req.headers.authorization.split(" ")[1],
-        jwtSecret
-      );
-      console.log(`decoded.permission - ${decoded.permission}`);
-      if (canGetUsers(decoded.permission)) {
+      const { permission } = getTokenData(req);
+      if (!canGetUsers(permission)) {
         return {
           code: 401,
           data: {
@@ -97,7 +101,6 @@ module.exports = function (
       // after authority check
       // 1. no users
       // 2. at least one user
-
       // to secure users information, password shouldn't be send
       // all employees can get users' info, so it's not safe to send password
       const users = await User.findAll({
@@ -151,23 +154,35 @@ module.exports = function (
       return result;
     } catch (error) {
       console.log(error);
-      return {
-        code: 500,
-        data: {
-          msg: "Internal server error. Contact admin to report the issue",
-          error,
-        },
-      };
+      return internalServerError(error);
     }
   };
 
   /** handle request to endpoint /user/:id */
   AuthController.getUserById = async (req) => {
-    return await {
-      code: 200,
-      data: { msg: "api//user/:id, method GET, to be added" },
-    };
+    /**
+     * 1. id in url NOT equal to ID in token, no permission, return 401
+     * Otherwise, return user data
+     * 2. not equal id, but with permission, go ahead
+     * 3. equal id, go ahead
+     */
+    const { userID, permission } = getTokenData(req);
+
+    if (userID != req.params.id && !canGetUsers(permission)) {
+      return { code: 401, data: { msg: "Request denied. No permission." } };
+    }
+
+    try {
+      const user = await User.findByPk(req.params.id, {
+        attributes: { exclude: ["password"] },
+      });
+      if (!user) return { code: 404, data: { msg: "Resource doesn't exist." } };
+      return { code: 200, data: user };
+    } catch (error) {
+      return internalServerError(error);
+    }
   };
+
   AuthController.putUserById = async (req) => {
     return await {
       code: 200,
