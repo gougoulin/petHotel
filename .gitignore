@@ -1,7 +1,8 @@
+# dependencies
 node_modules
 
+# local enviroment 
 .env
 
-./client/node_modules
-
+# local configuration
 config/config.json
