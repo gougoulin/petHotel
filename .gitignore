@@ -8,5 +8,4 @@ node_modules
 ./client/.env
 
 # local configuration
-config/config.json
 ./src/config/config.json
