@@ -1,11 +1,11 @@
 # dependencies
-node_modules
-./node_modules
-./client/node_modules
+/node_modules
+/client/node_modules
 
 # local enviroment 
 .env
-./client/.env
+/client/.env
 
 # local configuration
 ./src/config/config.json
+/src/config/config.json
