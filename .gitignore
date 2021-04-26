@@ -9,4 +9,4 @@ node_modules
 
 # local configuration
 config/config.json
-
+./src/config/config.json
