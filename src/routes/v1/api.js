@@ -3,15 +3,15 @@ var router = express.Router();
 
 const jwt = require("jsonwebtoken");
 const env = process.env.NODE_ENV || "development";
-const config = require("../config/config.json")[env];
+const config = require("../../config/config.json")[env];
 const { jwtSecret, jwtOptions } = config;
 
-const db = require("../models/");
-const checkPassword = require("../helpers/checkpassword");
-const getToken = require("../helpers/getToken");
-const authorization = require("../helpers/permission");
+const db = require("../../models");
+const checkPassword = require("../../helpers/checkpassword");
+const getToken = require("../../helpers/getToken");
+const authorization = require("../../helpers/permission");
 
-const authController = require("../controllers/auth")(
+const authController = require("../../controllers/auth")(
   db,
   checkPassword,
   getToken,
@@ -29,12 +29,17 @@ router
     sendResponse({ code, data }, res);
   })
   .all((req, res) =>
-    res.status(401).json({ msg: "Invalid request methods for the resource." })
+    res
+      .status(401)
+      .json({ message: "Invalid request methods for the resource." })
   );
 
-/** endpoint /user/:id */
+/**
+ * endpoint /users
+ */
+// single user
 router
-  .route("/user/:id")
+  .route("/users/:id")
   .get(async (req, res) => {
     const { code, data } = await authController.getUserById(req);
     sendResponse({ code, data }, res);
@@ -48,60 +53,71 @@ router
     sendResponse({ code, data }, res);
   })
   .all((req, res) =>
-    res.status(401).json({ msg: "Invalid request methods for the resource." })
+    res
+      .status(401)
+      .json({ message: "Invalid request methods for the resource." })
   );
-
-/**  endpoint /user  */
-router
-  .route("/user")
-  .get()
-  .post(async (req, res) => {
-    const { code, data } = await authController.postUser(req);
-    sendResponse({ code, data }, res);
-  })
-  .all((req, res) =>
-    res.status(401).json({ msg: "Invalid request methods for the resource." })
-  );
-
-/** endpoint /users */
+/**
+ * /users
+ * 1. create new user
+ * 2. read user list
+ */
 router
   .route("/users")
   .get(async (req, res) => {
     const { code, data } = await authController.getUsers(req);
     sendResponse({ code, data }, res);
   })
+  .post(async (req, res) => {
+    const { code, data } = await authController.postUser(req);
+    sendResponse({ code, data }, res);
+  })
   .all((req, res) =>
-    res.status(401).json({ msg: "Invalid request methods for the resource." })
+    res
+      .status(401)
+      .json({ message: "Invalid request methods for the resource." })
   );
 
-/** /customer endpoint */
+/**
+ * Endpoint Customers
+ * /customers
+ * 1. get
+ * 2. post
+ * /customers/:id
+ * 1. get
+ * 2. put
+ * 3. delete
+ */
 router
-  .route("/customer")
+  .route("/customers")
   .post(async (req, res) => {
     const { code, data } = await authController.postCustomer(req);
     sendResponse({ code, data }, res);
   })
+  .get()
   .all((req, res) =>
-    res.status(401).json({ msg: "Invalid request methods for the resource." })
+    res
+      .status(401)
+      .json({ message: "Invalid request methods for the resource." })
   );
 
-router.route("/customers").get().post().all();
+router.route("/customers/:id").get().post().delete().all();
 
-router.route("/customer/:id").get().post().delete().all();
-
-/** /pet endpoint */
-router.route("/pet").get().post().all();
+/**
+ * Endpoint Pets /pets
+ */
 router.route("/pets").get().post().all();
-router.route("/pet/:id").get().post().delete().all();
+router.route("/pets/:id").get().post().delete().all();
 
 /**
  *
- * @param {*} param0 - object {code: int, data: object}
+ * @param {*} object {code: int, data: object}
+ * @param {data} Object or Array
  * @param {*} res - http response
  *
  */
 function sendResponse({ code, data }, res) {
-  res.status(code).json(data);
+  res.status(code).json({ ...data });
 }
 
 module.exports = router;

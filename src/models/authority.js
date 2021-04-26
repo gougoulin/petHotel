@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      permission: {
-        type: DataTypes.INTEGER,
+      role: {
+        type: DataTypes.STRING,
       },
       detail: {
         type: DataTypes.TEXT,

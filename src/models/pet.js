@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pet.init(
     {
-      petId: {
+      petID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,

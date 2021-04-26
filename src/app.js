@@ -9,7 +9,17 @@ const expressWinston = require("express-winston");
 
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
-var apiRouter = require("./routes/api");
+// var apiRouter = require("./routes/api");
+// var apiRouter = require("./routes/v1/api");
+
+// define routers
+var authRouter = require("./routes/v2/auth");
+var adminRouter = require("./routes/v2/admin");
+var customerRouter = require("./routes/v2/customer");
+var employeeRouter = require("./routes/v2/employee");
+var petRouter = require("./routes/v2/pet");
+var userRouter = require("./routes/v2/user");
+var paymentRouter = require("./routes/v2/payment");
 
 var app = express();
 
@@ -42,7 +52,16 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use("/", indexRouter);
 // app.use("/users", usersRouter);
 /** API Route */
-app.use("/api", apiRouter);
+// v1 endpoints
+// app.use("/api/v1/", apiRouter);
+// v2 endpoints
+app.use("/api/v2/auth", authRouter);
+// app.use("/api/v2/users", userRouter);
+// app.use("/api/v2/customers", customerRouter);
+// app.use("/api/v2/pets", petRouter);
+// app.use("/api/v2/employees", employeeRouter);
+// app.use("/api/v2/payments", paymentRouter);
+// app.use("/api/v2/admins", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

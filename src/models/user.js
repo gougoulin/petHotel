@@ -15,12 +15,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Customer, { foreignKey: "userID" });
-      User.hasOne(models.Employee, { foreignKey: "userId" });
+      User.hasOne(models.Employee, { foreignKey: "userID" });
       User.hasOne(models.Admin, { foreignKey: "userID" });
       User.belongsToMany(models.Authority, {
         through: "AuthorityUser",
-        foreignKey: "userId",
+        foreignKey: "userID",
       });
+      User.hasOne(models.Authority, { foreignKey: "userID" });
     }
   }
   User.init(
